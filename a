@@ -24,5 +24,21 @@ namespace Binomial
             Console.WriteLine(p_up);
 
         }
+        
+        
+        
+        private double Call(double s, double k)
+		{
+			return Math.Max(0.0, s - k);
+		}
+
+		private double Put(double s, double k)
+		{
+			return Math.Max(0.0, k - s);
+		}
+        
+        
+        
+        
     }
 }
