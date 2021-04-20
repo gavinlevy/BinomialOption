@@ -1,0 +1,28 @@
+using System;
+
+namespace Binomial
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double s = 102;
+            double k = 96;
+            double r = 0.06;
+            double q = 0.04;
+            double sigma = 0.25;
+            double t = 0.5;
+            double t0 = 0;
+            double n = 5;
+            double dt = (t-t0) / n;
+
+            double a = Math.Exp((r - q) * dt);
+            double u = Math.Exp(sigma * Math.Sqrt(dt));
+            Double d = 1 / u;
+            Double p_up = (a - d) / (u - d);
+            
+            Console.WriteLine(p_up);
+
+        }
+    }
+}
