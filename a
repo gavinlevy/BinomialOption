@@ -22,6 +22,7 @@ namespace Binomial
             Double p_up = (a - d) / (u - d);
             
             Console.WriteLine(p_up);
+	    // static private double a(double q, double r, double dt) {Math.Exp((r-q)*dt); return a;}
 
         }
         
@@ -36,7 +37,7 @@ namespace Binomial
 		{
 			return Math.Max(0.0, k - s);
 		}
-        
+     
         
         
         
