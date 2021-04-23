@@ -20,7 +20,10 @@ namespace Binomial
             double u = Math.Exp(sigma * Math.Sqrt(dt));
             Double d = 1 / u;
             Double p_up = (a - d) / (u - d);
+	    Double p_down = 1 - p_up;
             
+	    Double Delta = 
+	    
             Console.WriteLine(p_up);
 	    // static private double a(double q, double r, double dt) {Math.Exp((r-q)*dt); return a;}
 
