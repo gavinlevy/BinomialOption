@@ -1,55 +1,6 @@
-using System;
-
-namespace Binomial
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            double s = 102;
-            double k = 96;
-            double r = 0.06;
-            double q = 0.04;
-            double sigma = 0.25;
-            double t = 0.5;
-            double t0 = 0;
-            double n = 5;
-            double dt = (t-t0) / n;
-
-            double a = Math.Exp((r - q) * dt);
-            double u = Math.Exp(sigma * Math.Sqrt(dt));
-            Double d = 1 / u;
-            Double p_up = (a - d) / (u - d);
-	    Double p_down = 1 - p_up;
-            
-	    Double Delta = 
-	    
-            Console.WriteLine(p_up);
-	    // static private double a(double q, double r, double dt) {Math.Exp((r-q)*dt); return a;}
-
-        }
-        
-        
-        
-        	private double Call(double s, double k)
-		{
-			return Math.Max(0.0, s - k);
-		}
-
-		private double Put(double s, double k)
-		{
-			return Math.Max(0.0, k - s);
-		}
-     
-        
-        
-        
-    }
-}
 
 
-
-/* Possible solution found 
+// Possible solution found, european call & put pricing is accurate if dividend = 0
 
 using System;
 
@@ -65,6 +16,7 @@ namespace Binomial
 
         static void Main()
         {
+	// Strike, underlyingPrice, yearsToExpiry, Volatility, riskFreeRate, divididendYield, put/call, european(T/F), nSteps
              Console.WriteLine(BinomialTree(95,100,5,0.5,0.06,.03,PutCallFlag.Put,true ,10));
         }
             /// Cox-Ross-Rubinstein Binomial Tree
@@ -114,4 +66,3 @@ namespace Binomial
 
 
 
-*/
