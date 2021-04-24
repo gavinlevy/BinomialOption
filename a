@@ -31,7 +31,7 @@ namespace Binomial
         
         
         
-        private double Call(double s, double k)
+        	private double Call(double s, double k)
 		{
 			return Math.Max(0.0, s - k);
 		}
@@ -46,3 +46,72 @@ namespace Binomial
         
     }
 }
+
+
+
+/* Possible solution found but cannot get to run
+
+using System;
+
+namespace Binomial
+{
+
+    public class Options
+    {
+        public enum PutCallFlag
+        {
+            Put, Call
+        }
+
+        static void Main()
+        {
+             BinomialTree(95,100,5,0.5,0.06,.03,PutCallFlag.Put,true ,10);
+        }
+            /// Cox-Ross-Rubinstein Binomial Tree
+            /// <returns>price of the option</returns>
+           public static double BinomialTree(double strike, double underlyingPrice, double yearsToExpiry, double vol, double riskFreeRate, double dividendYield, PutCallFlag putCallFlag, bool isEuropean, int nSteps)
+            {
+                double b = riskFreeRate - dividendYield;
+                double[] optionValueArray = new double[nSteps + 1];
+
+                int z;
+                if (putCallFlag == PutCallFlag.Call)
+                    z = 1;
+                else z = -1;
+
+                double dt = yearsToExpiry / nSteps;
+                double u = Math.Exp(vol * Math.Sqrt(dt));
+                double d = 1.0 / u;
+                double a = Math.Exp(b * dt);
+                double p = (a - d) / (u - d);
+                double df = Math.Exp(-riskFreeRate * dt);
+
+                for (int i = 0; i <= nSteps; i++)
+                    optionValueArray[i] = Math.Max(0, z * (underlyingPrice * Math.Pow(u, i) * Math.Pow(d, nSteps - i) - strike));
+
+                for (int j = nSteps - 1; j >= 0; j--)
+                {
+                    for (int i = 0; i <= j; i++)
+                    {
+                        double e = df * (p * optionValueArray[i + 1] + (1 - p) * optionValueArray[i]);
+                        if (isEuropean)
+                        {
+                            optionValueArray[i] = e;
+                        }
+                        else
+                        {
+                            double intrinsic = z * (underlyingPrice * Math.Pow(u, i) * Math.Pow(d, j - i) - strike);
+                            optionValueArray[i] = Math.Max(intrinsic, e);
+                        }
+                    }
+                }
+                return optionValueArray[0];
+            }
+
+
+        }
+    }
+
+
+
+*/
