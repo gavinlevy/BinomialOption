@@ -71,7 +71,8 @@ class BinomialOption
     Console.WriteLine("The Volatility is " + σ * 100 + "%");
   }
 
-  public double Valuation(double S0, double t0, int n)
+ // Calculate the parameter values for u, d, the discount factor df and the risk-neutral probabilities p rn, q rn, etc
+    public double Valuation(double S0, double t0, int n)
   {
       double dt = (T - t0) / (double)n;
       double u = Math.Exp(σ * Math.Sqrt(dt));
@@ -79,7 +80,8 @@ class BinomialOption
       double df = Math.Exp(- rf * dt);
       double p_rn = (Math.Exp(dt * (rf - q)) - d) / (u - d);
       double q_rn = (u - Math.Exp(dt * (rf - q))) / (u - d);
-      
+
+ // Memory allocation
       double[][] S = null;
       double[][] V = null;
       S = new double[n + 1][];
@@ -88,29 +90,34 @@ class BinomialOption
       {
           S[i] = new double[i + 1];
           V[i] = new double[i + 1];
+        }
+
+ // Stock prices in nodes
+     // Set the values of the stock prices at every node
+      S[0][0] = S0;                      // first node
+      for (int i = 1; i <= n; i++)       // note loop account
+        {
+          for (int j = 1; j <= i; j++)   // note loop account
+            {
+              S[i][j] = S0 * Math.Pow(u, (i + 1 - j)) * Math.Pow(d, j);  // compute the value of S[i][j]
+            } 
       }
-      
-      S[0][0] = S0;
-      for (int i = 1; i <= n; i++)
-      {
-          for (int j = 1; j <= i; j++)
-          {
-              S[i][j] = S0 * Math.Pow(u, (i + 1 - j)) * Math.Pow(d, j);
-          } 
-      }
-      
+
+// Terminal payoff
+     //set the terminal payoff at the stepn = n
       for (int j = 0; j <= n; j++)
       {
-          if(type == true)       { V[n][j] = Math.Max((S[n][j] - K), 0); }
-          else if(type == false) { V[n][j] = Math.Max((K - S[n][j]), 0); }
-      }
-      
-      for (int i = n - 1; i >= 0; i--)
+          if(type == true)       { V[n][j] = Math.Max((S[n][j] - K), 0); }    // terminal payoff depends on value of S[n][j] for Call Option
+          else if(type == false) { V[n][j] = Math.Max((K - S[n][j]), 0); }    // terminal payoff depends on value of S[n][j] for Put Option
+        }
+
+// Discounted expectation and valuation tests
+      for (int i = n - 1; i >= 0; i--)    // work backwards
       {
           for (int j = 0; j <= i; j++)
           {   // discounted expectation
               double Vtmp = df * (p_rn * V[i + 1][j] + q_rn * V[i + 1][j + 1]);
-              //Overwrite if it's American Option.
+              //overwrite if it's American Option.
               if(sort == true)
               {
                   if(type == true)  { Vtmp = Math.Max(Vtmp, Math.Max((S[i][j] - K), 0)); }
@@ -119,11 +126,12 @@ class BinomialOption
               
               V[i][j] = Vtmp;
           }
-      }
-      
+        }
+ // Return the value of V[0][0] as the fair value of the option
       return V[0][0];
   }
   
+// Calculate and return Greeks
   public double Del(double S0, double t0, int n)
   {
       double delta = (Valuation((S0 + S0 / 1000), t0, n) - Valuation((S0 - S0 / 1000), t0, n)) / (2 * S0 / 1000);
@@ -158,7 +166,7 @@ class BinomialOption
       return vega;
   }
   
-  public double Rhoo(double S0, double t0, int n)
+  public double rho(double S0, double t0, int n)
   {
       double r1 = rf + rf / 1000;
       double r2 = rf - rf / 1000;
@@ -184,10 +192,12 @@ class BinomialOption
       
       return theta;
   }
-  
+
+
+// Calculate and return the implied volatility
   public double impliedVolatility(double S0, double t0, double TargetPrice, double tolerance, int n)
   {
-      for(int i = 0; ;i++)
+      for(int i = 0; i <= n; i++)
       {
           double ivalue = Valuation(S0, t0, n);
           double ivega = Veg(S0, t0, n);
