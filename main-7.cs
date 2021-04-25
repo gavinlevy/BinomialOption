@@ -35,9 +35,7 @@ class Project3 {
         Console.WriteLine("The Rhoo is:" + p.Rhoo(S0, t0, n)); 
         Console.WriteLine("The implied volatility is : " + p.impliedVolatility(S0, t0, Vtarget, Vtol, n));
         
-     
-        p.impliedVolatility(S0,t0,Vtarget,Vtol,n);
-        p.print();
+    
         Console.WriteLine(" ");
         Console.WriteLine("The call option value is:" + c.Valuation(S0, t0, n));
         Console.WriteLine("The theta is:" + c.Thet(S0, t0, n));
