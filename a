@@ -15,6 +15,7 @@ namespace Binomial
             double riskFreeRate = 0.06;
             double dividendYield = 0;
             int nSteps = 5;
+	    int t0 = 0;
 
             double b = riskFreeRate - dividendYield;
             double dt = yearsToExpiry / nSteps;
