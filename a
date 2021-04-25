@@ -6,15 +6,15 @@ namespace Binomial
 
     public class Options 
     {
-        public enum PutCallFlag //identifies if the option is a put or a call 
-        {
-            Put, Call
-        }
-
         static void Main()
         {
 	//Enter in variables as follows ; Strike, underlyingPrice, yearsToExpiry, Volatility, riskFreeRate, divididendYield, put/call, european(T/F), nSteps
              Console.WriteLine(BinomialTree(95,100,5,0.5,0.06,.03,PutCallFlag.Put,true ,10));
+        }
+	
+	 public enum PutCallFlag //identifies if the option is a put or a call 
+        {
+            Put, Call
         }
 	
             // Cox-Ross-Rubinstein Binomial Tree
