@@ -1,7 +1,4 @@
 
-
-// Possible solution found, european call & put pricing is accurate if dividend = 0
-
 using System;
 
 namespace Binomial
