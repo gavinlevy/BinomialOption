@@ -15,7 +15,7 @@ namespace Binomial
             double riskFreeRate = 0.06;
             double dividendYield = 0;
 	    //Need to change PutCallFlag to .Put or .Call in method itself
-            bool isEuropean = true;
+            //bool isEuropean = true;
             int nSteps = 5;
 
             double b = riskFreeRate - dividendYield;
@@ -26,8 +26,11 @@ namespace Binomial
             double p = (a - d) / (u - d);
             double df = Math.Exp(-riskFreeRate * dt);
 
-            Console.WriteLine("The option value is : " + BinomialTree(strike,underlyingPrice,yearsToExpiry,vol,riskFreeRate,dividendYield,PutCallFlag.Put, isEuropean ,nSteps));
-            Console.WriteLine(" a = "+ a);
+            Console.WriteLine("The European Call option value is : " + BinomialTree(strike,underlyingPrice,yearsToExpiry,vol,riskFreeRate,dividendYield,PutCallFlag.Call, true ,nSteps));
+            Console.WriteLine("The American Call option value is : " + BinomialTree(strike,underlyingPrice,yearsToExpiry,vol,riskFreeRate,dividendYield,PutCallFlag.Call, false ,nSteps));
+	    Console.WriteLine("The European Put option value is : " + BinomialTree(strike,underlyingPrice,yearsToExpiry,vol,riskFreeRate,dividendYield,PutCallFlag.Put, true ,nSteps));
+            Console.WriteLine("The American Put option value is : " + BinomialTree(strike,underlyingPrice,yearsToExpiry,vol,riskFreeRate,dividendYield,PutCallFlag.Put, false ,nSteps));
+	    Console.WriteLine(" a = "+ a);
             Console.WriteLine(" u = " + u);
             Console.WriteLine(" d = " + d);
             Console.WriteLine(" probability of up move is = " + p);
@@ -88,6 +91,6 @@ namespace Binomial
 
         }
     }
-
+}
 
 
