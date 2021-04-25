@@ -9,13 +9,23 @@ Write your code in this editor and press "Run" button to execute it.
 using System;
 class Project3 {
   static void Main() {
-   BinomialOption p = new BinomialOption(false, false, 90, 10, 0.02, 0.02, 0.2);
-   BinomialOption c = new BinomialOption(true, false, 90, 10, 0.02, 0.02, 0.2);
-        double S0=88;
-        double t0=0;
-        int n=5;
+    
+     //bool OptionType = true; //true is call, false is put
+        bool OptionKind = true; //true is american, false is european
+        double Strike = 90;
+        double S0 = 88; //underlying
+        double ExpireTime = 10;
+        double t0 = 0;
+        int n = 5;
+        double RiskFreeRate = 0.02;
+        double ContinuousDividendYield = 0.0;
+        double Volatility = 0.2;
         double Vtarget=18;
         double Vtol=0.01;
+
+        BinomialOption p = new BinomialOption(false, OptionKind, Strike, ExpireTime, RiskFreeRate, ContinuousDividendYield, Volatility);
+        BinomialOption c = new BinomialOption(true, OptionKind, Strike, ExpireTime, RiskFreeRate, ContinuousDividendYield, Volatility);
+
         Console.WriteLine("The put option value is:" + p.Valuation(S0, t0, n));
      
         Console.WriteLine("The theta is:" + p.Thet(S0, t0, n));
