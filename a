@@ -7,40 +7,45 @@ using System;
 namespace Binomial
 {
 
-    public class Options
+    public class Options 
     {
-        public enum PutCallFlag
+        public enum PutCallFlag //identifies if the option is a put or a call 
         {
             Put, Call
         }
 
         static void Main()
         {
-	// Strike, underlyingPrice, yearsToExpiry, Volatility, riskFreeRate, divididendYield, put/call, european(T/F), nSteps
+	//Enter in variables as follows ; Strike, underlyingPrice, yearsToExpiry, Volatility, riskFreeRate, divididendYield, put/call, european(T/F), nSteps
              Console.WriteLine(BinomialTree(95,100,5,0.5,0.06,.03,PutCallFlag.Put,true ,10));
         }
-            /// Cox-Ross-Rubinstein Binomial Tree
-            /// <returns>price of the option</returns>
+	
+            // Cox-Ross-Rubinstein Binomial Tree
+         
            public static double BinomialTree(double strike, double underlyingPrice, double yearsToExpiry, double vol, double riskFreeRate, double dividendYield, PutCallFlag putCallFlag, bool isEuropean, int nSteps)
             {
-                double b = riskFreeRate - dividendYield;
-                double[] optionValueArray = new double[nSteps + 1];
+	    
+                double b = riskFreeRate - dividendYield; //calculates the rf-dividend to be used in probability up/down moves
+                double[] optionValueArray = new double[nSteps + 1]; //creates an array of option values for each step (starts at zero which is option value)
+                double dt = yearsToExpiry / nSteps; // calculates the time length of each step
+                double u = Math.Exp(vol * Math.Sqrt(dt)); // calculates probability of up movement
+                double d = 1.0 / u; // calculates probability of down movement
+                double a = Math.Exp(b * dt); // calcuates risk neutral probility of up movement
+                double p = (a - d) / (u - d); // calculates maginitude of up movement (1-p calculates magnitude of down movement)
+                double df = Math.Exp(-riskFreeRate * dt); //calculates discount factor used for each step in recursive fashion
 
-                int z;
+                int z; //Z dictates if option is a put or a call by use of 1/-1
                 if (putCallFlag == PutCallFlag.Call)
                     z = 1;
                 else z = -1;
 
-                double dt = yearsToExpiry / nSteps;
-                double u = Math.Exp(vol * Math.Sqrt(dt));
-                double d = 1.0 / u;
-                double a = Math.Exp(b * dt);
-                double p = (a - d) / (u - d);
-                double df = Math.Exp(-riskFreeRate * dt);
 
+		//Creates the stock price underlying array by taking the max of 0 or up/down movement (the z variable which has 1/-1 changes the sign on the (option value - strike for put /call)  
                 for (int i = 0; i <= nSteps; i++)
                     optionValueArray[i] = Math.Max(0, z * (underlyingPrice * Math.Pow(u, i) * Math.Pow(d, nSteps - i) - strike));
+		
 
+		// Goes backwards in the array to calculate the option value recursively and has an. if function to identify if american or european.
                 for (int j = nSteps - 1; j >= 0; j--)
                 {
                     for (int i = 0; i <= j; i++)
@@ -57,7 +62,8 @@ namespace Binomial
                         }
                     }
                 }
-                return optionValueArray[0];
+		
+                return optionValueArray[0]; // returns the first step in the array which is the option value
             }
 
 
