@@ -82,7 +82,7 @@ class BinomialOption
     Console.WriteLine("The Expiration Time is " + T + " years");
     Console.WriteLine("The Risk Free Rate is " + r * 100 + "%");
     Console.WriteLine("The Continuous Dividend Yield is " + q * 100 + "%");
-    Console.WriteLine("The Volatility is " + σ * 100 + "%");
+    Console.WriteLine("The Implied Volatility is " + σ * 100 + "%");
   }
 
   public double Valuation(double S0, double t0, int n)
