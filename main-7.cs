@@ -26,6 +26,11 @@ class Project3 {
         BinomialOption p = new BinomialOption(false, OptionKind, Strike, ExpireTime, RiskFreeRate, ContinuousDividendYield, Volatility);
         BinomialOption c = new BinomialOption(true, OptionKind, Strike, ExpireTime, RiskFreeRate, ContinuousDividendYield, Volatility);
         
+        //put call parity
+        Console.WriteLine("Put Call Parity Check");
+        Console.WriteLine("C+Ke^(-rt): " + (c.Valuation(S0, t0, n) + (Strike * (Math.Exp(-RiskFreeRate * ExpireTime)))));
+        Console.WriteLine("P + S0: " + (p.Valuation(S0, t0, n) + S0));
+        
         Console.WriteLine(" ");
         Console.WriteLine("The put option value is:" + p.Valuation(S0, t0, n));
         Console.WriteLine("The theta is:" + p.Thet(S0, t0, n));
@@ -44,11 +49,6 @@ class Project3 {
         Console.WriteLine("The Veg is:" + c.Veg(S0, t0, n));
         Console.WriteLine("The Rhoo is:" + c.Rhoo(S0, t0, n));
         Console.WriteLine("The implied volatility is : " + c.impliedVolatility(S0, t0, Vtarget, Vtol, n));
-        
-        Console.WriteLine(" Put Call Parity : " + c.Valuation(S0, t0, n) + Strike * Math.Exp(-RiskFreeRate * (ExpireTime - t0)));
-        Console.WriteLine(p.Valuation(S0, t0, n) + S0);
-        Console.WriteLine(c.Valuation(S0, t0, n)- p.Valuation(S0, t0, n));
-        Console.WriteLine(S0 - Strike * Math.Exp(-RiskFreeRate * (ExpireTime - t0)));
     
   }
 }
