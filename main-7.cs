@@ -14,24 +14,31 @@ class Project3 {
         double S0=88;
         double t0=0;
         int n=5;
-        double Vtarget=18;
-        double Vtol=0.01;
-        p.impliedVolatility(S0,t0,Vtarget,Vtol,n);
-        p.print();
+        Console.WriteLine("The option value is:" + p.Valuation(S0, t0, n));
+     
         Console.WriteLine("The theta is:" + p.Thet(S0, t0, n));
         Console.WriteLine("The gamma is:" + p.Gam(S0, t0, n));
         Console.WriteLine("The delta is:" + p.Del(S0, t0, n)); 
         Console.WriteLine("The Veg is:" + p.Veg(S0, t0, n));
         Console.WriteLine("The Rhoo is:" + p.Rhoo(S0, t0, n)); 
         
-        c.impliedVolatility(S0,t0,Vtarget,Vtol,n);
-        c.print();
+        double Vtarget=18;
+        double Vtol=0.01;
+        p.impliedVolatility(S0,t0,Vtarget,Vtol,n);
+        p.print();
+        Console.WriteLine(" ");
+        Console.WriteLine("The option value is:" + p.Valuation(S0, t0, n));
         Console.WriteLine("The theta is:" + c.Thet(S0, t0, n));
         Console.WriteLine("The gamma is:" + c.Gam(S0, t0, n));
         Console.WriteLine("The delta is:" + c.Del(S0, t0, n)); 
         Console.WriteLine("The Veg is:" + c.Veg(S0, t0, n));
         Console.WriteLine("The Rhoo is:" + c.Rhoo(S0, t0, n));
         
+      
+        c.impliedVolatility(S0,t0,Vtarget,Vtol,n);
+        c.print();
+        Console.WriteLine(" ");
+    
   }
 }
 
