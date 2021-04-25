@@ -14,6 +14,7 @@ namespace Binomial
             double vol = 0.25;
             double riskFreeRate = 0.06;
             double dividendYield = 0;
+	    //Need to change PutCallFlag to .Put or .Call in method itself
             bool isEuropean = true;
             int nSteps = 5;
 
