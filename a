@@ -8,8 +8,29 @@ namespace Binomial
     {
         static void Main()
         {
-	//Enter in variables as follows ; Strike, underlyingPrice, yearsToExpiry, Volatility, riskFreeRate, divididendYield, put/call, european(T/F), nSteps
-             Console.WriteLine(BinomialTree(95,100,5,0.5,0.06,.03,PutCallFlag.Put,true ,10));
+	    double strike = 90;
+            double underlyingPrice = 102;
+            double yearsToExpiry = 0.5;
+            double vol = 0.25;
+            double riskFreeRate = 0.06;
+            double dividendYield = 0;
+            bool isEuropean = true;
+            int nSteps = 5;
+
+            double b = riskFreeRate - dividendYield;
+            double dt = yearsToExpiry / nSteps;
+            double u = Math.Exp(vol * Math.Sqrt(dt));
+            double d = 1.0 / u;
+            double a = Math.Exp(b * dt);
+            double p = (a - d) / (u - d);
+            double df = Math.Exp(-riskFreeRate * dt);
+
+            Console.WriteLine("The option value is : " + BinomialTree(strike,underlyingPrice,yearsToExpiry,vol,riskFreeRate,dividendYield,PutCallFlag.Put, isEuropean ,nSteps));
+            Console.WriteLine(" a = "+ a);
+            Console.WriteLine(" u = " + u);
+            Console.WriteLine(" d = " + d);
+            Console.WriteLine(" probability of up move is = " + p);
+            Console.WriteLine(" probability of down move is = " + (1-p));
         }
 	
 	 public enum PutCallFlag //identifies if the option is a put or a call 
