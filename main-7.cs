@@ -27,7 +27,7 @@ class Project3 {
         p.impliedVolatility(S0,t0,Vtarget,Vtol,n);
         p.print();
         Console.WriteLine(" ");
-        Console.WriteLine("The option value is:" + p.Valuation(S0, t0, n));
+        Console.WriteLine("The option value is:" + c.Valuation(S0, t0, n));
         Console.WriteLine("The theta is:" + c.Thet(S0, t0, n));
         Console.WriteLine("The gamma is:" + c.Gam(S0, t0, n));
         Console.WriteLine("The delta is:" + c.Del(S0, t0, n)); 
