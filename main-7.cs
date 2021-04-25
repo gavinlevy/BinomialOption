@@ -32,24 +32,23 @@ class Project3 {
         Console.WriteLine("P + S0: " + (p.Valuation(S0, t0, n) + S0));
         
         Console.WriteLine(" ");
-        Console.WriteLine("The put option value is:" + p.Valuation(S0, t0, n));
-        Console.WriteLine("The theta is:" + p.Thet(S0, t0, n));
-        Console.WriteLine("The gamma is:" + p.Gam(S0, t0, n));
-        Console.WriteLine("The delta is:" + p.Del(S0, t0, n)); 
+        Console.WriteLine("The Put option value is:" + p.Valuation(S0, t0, n));
+        Console.WriteLine("The Delta is:" + p.Del(S0, t0, n));
+        Console.WriteLine("The Gamma is:" + p.Gam(S0, t0, n));
         Console.WriteLine("The Veg is:" + p.Veg(S0, t0, n));
-        Console.WriteLine("The Rhoo is:" + p.Rhoo(S0, t0, n)); 
+        Console.WriteLine("The Theta is:" + p.Thet(S0, t0, n));
+        Console.WriteLine("The Rho is:" + p.Rhoo(S0, t0, n));
         Console.WriteLine("The implied volatility is : " + p.impliedVolatility(S0, t0, Vtarget, Vtol, n));
-        
-    
+
+
         Console.WriteLine(" ");
-        Console.WriteLine("The call option value is:" + c.Valuation(S0, t0, n));
-        Console.WriteLine("The theta is:" + c.Thet(S0, t0, n));
-        Console.WriteLine("The gamma is:" + c.Gam(S0, t0, n));
-        Console.WriteLine("The delta is:" + c.Del(S0, t0, n)); 
+        Console.WriteLine("The Call option value is:" + c.Valuation(S0, t0, n));
+        Console.WriteLine("The Delta is:" + c.Del(S0, t0, n));
+        Console.WriteLine("The Gamma is:" + c.Gam(S0, t0, n));
         Console.WriteLine("The Veg is:" + c.Veg(S0, t0, n));
-        Console.WriteLine("The Rhoo is:" + c.Rhoo(S0, t0, n));
+        Console.WriteLine("The Theta is:" + c.Thet(S0, t0, n));
+        Console.WriteLine("The Rho is:" + c.Rhoo(S0, t0, n));
         Console.WriteLine("The implied volatility is : " + c.impliedVolatility(S0, t0, Vtarget, Vtol, n));
-    
   }
 }
 
